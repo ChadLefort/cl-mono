@@ -1,12 +1,13 @@
 import { composeRenderProps, Button as RACButton, ButtonProps as RACButtonProps } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
 import { FC } from 'react';
+import { AnimatePresence, domAnimation, LazyMotion, motion, MotionProps } from 'framer-motion';
 
 import { focusRing } from '../utils';
 
-export interface ButtonProps extends RACButtonProps {
+export type ButtonProps = {
   variant?: 'primary' | 'secondary';
-}
+};
 
 const button = tv({
   extend: focusRing,
@@ -26,13 +27,21 @@ const button = tv({
   },
 });
 
-export const Button: FC<ButtonProps> = (props) => {
+const AnimatedButton = motion(RACButton);
+
+export const Button: FC<ButtonProps & RACButtonProps & MotionProps> = (props) => {
   return (
-    <RACButton
-      {...props}
-      className={composeRenderProps(props.className, (className, renderProps) =>
-        button({ ...renderProps, variant: props.variant, className })
-      )}
-    />
+    <LazyMotion features={domAnimation}>
+      <AnimatePresence>
+        <AnimatedButton
+          {...props}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className={composeRenderProps(props.className, (className, renderProps) =>
+            button({ ...renderProps, variant: props.variant, className })
+          )}
+        />
+      </AnimatePresence>
+    </LazyMotion>
   );
 };
