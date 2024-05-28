@@ -1,26 +1,27 @@
-import { useEffect, useState } from 'react';
-import { useDarkMode } from 'usehooks-ts';
+import { useLayoutEffect, useState } from 'react';
+import { useMediaQuery } from 'usehooks-ts';
 
 type Theme = 'light' | 'dark';
 
 export const useColorScheme = () => {
-  const { isDarkMode, toggle } = useDarkMode({ localStorageKey: 'isDarkMode' });
-  const [colorScheme, setColorScheme] = useState<Theme>(isDarkMode ? 'dark' : 'light');
+  const defaultPreference = useMediaQuery('(prefers-color-scheme: light)') ? 'light' : 'dark';
+  const [colorScheme, setColorScheme] = useState<Theme>(defaultPreference);
 
   const toggleTheme = () => {
     const oppositeTheme = colorScheme === 'light' ? 'dark' : 'light';
 
-    document.documentElement.classList.remove(colorScheme);
+    colorScheme && document.documentElement.classList.remove(colorScheme);
     document.documentElement.classList.add(oppositeTheme);
 
     setColorScheme(oppositeTheme);
-    toggle();
+    localStorage.setItem('colorScheme', oppositeTheme);
   };
 
-  useEffect(() => {
-    document.documentElement.classList.add(colorScheme);
-    setColorScheme(colorScheme);
-  }, [colorScheme]);
+  useLayoutEffect(() => {
+    const colorScheme = localStorage.getItem('colorScheme') as Theme | null;
+    document.documentElement.classList.add(colorScheme || defaultPreference);
+    setColorScheme(colorScheme || defaultPreference);
+  }, [defaultPreference]);
 
   return {
     colorScheme,
