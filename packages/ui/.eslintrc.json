@@ -5,7 +5,9 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {}
+      "rules": {
+        "storybook/no-uninstalled-addons": 0
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],
