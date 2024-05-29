@@ -1,21 +1,31 @@
 import { composeRenderProps, Button as RACButton, ButtonProps as RACButtonProps } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { AnimatePresence, domAnimation, LazyMotion, motion, MotionProps } from 'framer-motion';
+import clsx from 'clsx';
 
 import { focusRing } from '../utils';
+
+type Icon = React.ForwardRefExoticComponent<
+  React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
+    title?: string;
+    titleId?: string;
+  } & React.RefAttributes<SVGSVGElement>
+>;
 
 export type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'destructive';
   size?: 'sm' | 'md' | 'lg';
+  icon?: Icon;
+  iconPosition?: 'left' | 'right';
 };
 
 const button = tv({
   extend: focusRing,
-  base: 'cursor-pointer rounded-2xl text-center font-semibold shadow-lg transition',
+  base: 'shadow-primary/40 bg-primary text-primary-foregroundtransition cursor-pointer rounded-2xl text-center font-semibold shadow-lg',
   variants: {
     variant: {
-      primary: 'pressed:bg-slate-400 bg-slate-700 text-white hover:bg-slate-600',
+      primary: 'pressed:bg-slate-400 bg-primary text-white hover:bg-slate-600 dark:bg-slate-700',
       secondary: ' pressed:bg-zinc-400 bg-zinc-700 text-zinc-100 hover:bg-zinc-600',
       destructive: 'pressed:bg-red-400 bg-red-700 text-white hover:bg-red-600',
     },
@@ -36,6 +46,23 @@ const button = tv({
 
 const AnimatedButton = motion(RACButton);
 
+type IconProps = {
+  children: React.ReactNode;
+  icon: Icon;
+  iconPosition?: 'left' | 'right';
+};
+
+export const Icon: FC<IconProps> = ({ icon, iconPosition, children }) => {
+  const Icon = icon;
+
+  return (
+    <div className={clsx('flex items-center', iconPosition === 'right' && 'flex-row-reverse')}>
+      <Icon className="size-5" />
+      <span className={iconPosition === 'right' ? 'me-2' : 'ms-2'}>{children}</span>
+    </div>
+  );
+};
+
 export const Button: FC<ButtonProps & RACButtonProps & MotionProps> = (props) => {
   return (
     <LazyMotion features={domAnimation}>
@@ -47,7 +74,15 @@ export const Button: FC<ButtonProps & RACButtonProps & MotionProps> = (props) =>
           className={composeRenderProps(props.className, (className, renderProps) =>
             button({ ...renderProps, variant: props.variant, size: props.size, className })
           )}
-        />
+        >
+          {props.icon ? (
+            <Icon icon={props.icon} iconPosition={props.iconPosition}>
+              {props.children as React.ReactNode}
+            </Icon>
+          ) : (
+            props.children
+          )}
+        </AnimatedButton>
       </AnimatePresence>
     </LazyMotion>
   );

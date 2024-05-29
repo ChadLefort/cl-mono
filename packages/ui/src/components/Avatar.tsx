@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { tv } from 'tailwind-variants';
+import clsx from 'clsx';
 
 type AvatarProps = {
   src: string;
@@ -14,7 +15,7 @@ const avatar = tv({
     size: {
       sm: 'h-20 w-20',
       md: 'h-40 w-40',
-      lg: 'h-64 w-64',
+      lg: 'h-52 w-52',
     },
     withBorder: {
       true: 'border-4 border-white',
@@ -27,8 +28,29 @@ const avatar = tv({
 
 export const Avatar: FC<AvatarProps> = (props) => {
   return (
-    <div className={avatar({ size: props.size, withBorder: props.withBorder })}>
-      <img src={props.src} className="h-full w-full object-cover" alt="Avatar" {...props.imgProps} />
+    <div className="relative">
+      <div
+        className={clsx(
+          avatar({ size: props.size, withBorder: props.withBorder }),
+          'absolute z-10 -translate-x-1 -translate-y-1'
+        )}
+      >
+        <img
+          src={props.src}
+          alt="Avatar"
+          {...props.imgProps}
+          className={clsx('h-full w-full object-cover', props.imgProps?.className)}
+        />
+      </div>
+
+      <div className={clsx(avatar({ size: props.size, withBorder: props.withBorder }), 'z-0 blur-lg')}>
+        <img
+          src={props.src}
+          alt="Avatar"
+          {...props.imgProps}
+          className={clsx('h-full w-full object-cover', props.imgProps?.className)}
+        />
+      </div>
     </div>
   );
 };
