@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 import { focusRing } from '../utils';
 
-type Icon = React.ForwardRefExoticComponent<
+export type Icon = React.ForwardRefExoticComponent<
   React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
     title?: string;
     titleId?: string;

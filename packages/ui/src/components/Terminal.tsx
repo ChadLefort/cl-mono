@@ -74,7 +74,7 @@ export const Terminal: FC<TerminalProps> = ({ textCommand, onCommandComplete, de
   }, [textCommand.length, count, delay]);
 
   return (
-    <div className="bg-primary shadow-primary/40 text-primary-foreground flex min-h-80 flex-col rounded-2xl shadow-lg">
+    <div className="bg-primary shadow-primary/40 text-primary-foreground flex min-h-80 w-full flex-col rounded-2xl shadow-lg">
       <div className="bg-dark-pro flex items-center rounded-tl-2xl rounded-tr-2xl px-6 py-4 dark:bg-slate-700">
         <div className="flex items-center">
           <div className="mr-2 h-3 w-3 rounded-full bg-red-500"></div>
