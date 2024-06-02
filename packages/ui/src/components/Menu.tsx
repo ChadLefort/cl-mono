@@ -13,9 +13,6 @@ export const Menu: FC = () => {
           Skills
         </Link>
         <Link variant="secondary" href="/">
-          Education
-        </Link>
-        <Link variant="secondary" href="/">
           About Me
         </Link>
         <Link variant="secondary" href="/">

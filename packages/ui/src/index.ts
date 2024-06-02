@@ -5,3 +5,4 @@ export * from './components/Menu';
 export * from './components/Card';
 export * from './components/CardIcon';
 export * from './components/Link';
+export * from './components/Timeline';
