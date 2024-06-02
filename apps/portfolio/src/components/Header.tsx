@@ -4,13 +4,13 @@ import { FC } from 'react';
 
 export const Header: FC = () => {
   return (
-    <div className="flex flex-col items-center">
-      <div className="mb-10 flex flex-col items-center md:flex-row">
+    <div className="flex h-auto flex-col items-center justify-center md:h-lvh">
+      <div className="mb-10 flex flex-col items-center pt-11 md:flex-row">
         <Avatar src="me.png" imgProps={{ alt: 'Chad Lefort' }} />
 
         <div className="mx-6 hidden sm:flex sm:flex-col sm:items-center md:block">
           <h1 className="text-4xl font-extrabold text-white md:text-7xl">Chad Lefort</h1>
-          <h2 className="text-primary text-2xl font-bold md:text-5xl dark:text-slate-700">Senior Frontend Engineer</h2>
+          <h2 className="text-primary text-2xl font-bold md:text-5xl dark:text-slate-700">Frontend Engineer</h2>
         </div>
       </div>
 
@@ -40,9 +40,14 @@ export const Header: FC = () => {
         }
       />
 
-      {/* <Button variant="primary" className="mt-6" size="lg" icon={FolderArrowDownIcon}>
+      <Button
+        variant="primary"
+        className="mt-6 flex w-full justify-center md:w-auto"
+        size="lg"
+        icon={FolderArrowDownIcon}
+      >
         Download Resume
-      </Button> */}
+      </Button>
     </div>
   );
 };

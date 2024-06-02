@@ -6,5 +6,8 @@ module.exports = {
       primary: '#282C34',
       secondary: '#3891F8',
     },
+    screens: {
+      print: { raw: 'print' },
+    },
   },
 };

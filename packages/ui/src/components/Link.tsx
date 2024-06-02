@@ -5,7 +5,7 @@ import { tv } from 'tailwind-variants';
 
 import { focusRing } from '../utils';
 
-type LinkProps = {
+export type LinkProps = {
   variant?: 'primary' | 'secondary';
   animated?: boolean;
 };
@@ -15,8 +15,8 @@ const link = tv({
   base: 'text-white duration-200 ease-in-out dark:hover:dark:text-slate-700',
   variants: {
     variant: {
-      primary: 'hover:text-primary dark:hover:dark:text-slate-700',
-      secondary: 'hover:text-slate-400 dark:hover:dark:text-slate-700',
+      primary: 'hover:text-primary dark:hover:text-slate-700',
+      secondary: 'dark:hover:text-primary hover:text-slate-400',
     },
   },
   defaultVariants: {

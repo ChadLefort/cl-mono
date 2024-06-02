@@ -13,12 +13,30 @@ export type Icon = React.ForwardRefExoticComponent<
   } & React.RefAttributes<SVGSVGElement>
 >;
 
+type IconProps = {
+  children: React.ReactNode;
+  icon: Icon;
+  iconPosition?: 'left' | 'right';
+};
+
+export const Icon: FC<IconProps> = ({ icon, iconPosition, children }) => {
+  const Icon = icon;
+
+  return (
+    <div className={clsx('flex items-center', iconPosition === 'right' && 'flex-row-reverse')}>
+      <Icon className="size-5" />
+      <span className={iconPosition === 'right' ? 'me-2' : 'ms-2'}>{children}</span>
+    </div>
+  );
+};
+
 export type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'destructive';
   size?: 'sm' | 'md' | 'lg';
   icon?: Icon;
   iconPosition?: 'left' | 'right';
-};
+} & RACButtonProps &
+  MotionProps;
 
 const button = tv({
   extend: focusRing,
@@ -26,7 +44,7 @@ const button = tv({
   variants: {
     variant: {
       primary: 'pressed:bg-slate-400 bg-primary text-white hover:bg-slate-600 dark:bg-slate-700',
-      secondary: ' pressed:bg-zinc-400 bg-zinc-700 text-zinc-100 hover:bg-zinc-600',
+      secondary: 'pressed:bg-zinc-400 bg-zinc-700 text-zinc-100 hover:bg-zinc-600',
       destructive: 'pressed:bg-red-400 bg-red-700 text-white hover:bg-red-600',
     },
     size: {
@@ -46,24 +64,7 @@ const button = tv({
 
 const AnimatedButton = motion(RACButton);
 
-type IconProps = {
-  children: React.ReactNode;
-  icon: Icon;
-  iconPosition?: 'left' | 'right';
-};
-
-export const Icon: FC<IconProps> = ({ icon, iconPosition, children }) => {
-  const Icon = icon;
-
-  return (
-    <div className={clsx('flex items-center', iconPosition === 'right' && 'flex-row-reverse')}>
-      <Icon className="size-5" />
-      <span className={iconPosition === 'right' ? 'me-2' : 'ms-2'}>{children}</span>
-    </div>
-  );
-};
-
-export const Button: FC<ButtonProps & RACButtonProps & MotionProps> = (props) => {
+export const Button: FC<ButtonProps> = (props) => {
   return (
     <LazyMotion features={domAnimation}>
       <AnimatePresence>

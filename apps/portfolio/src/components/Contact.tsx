@@ -3,7 +3,7 @@ import { Link } from '@chadlefort/ui';
 
 export const Contact: React.FC = () => {
   return (
-    <div className="flex justify-center p-6">
+    <div className="flex justify-center p-16">
       <Link animated href="mailto:chadlefort@gmail.com" target="_blank" rel="noopener noreferrer">
         <SiGmail className="mx-4 size-5" />
       </Link>

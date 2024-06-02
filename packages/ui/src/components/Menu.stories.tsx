@@ -14,4 +14,16 @@ const meta: Meta<typeof Menu> = {
 export default meta;
 type Story = StoryObj<typeof Menu>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    children: (
+      <>
+        <Menu.Item href="#experience">Experience</Menu.Item>
+        <Menu.Item href="#skills">Skills</Menu.Item>
+        <Menu.Item href="#projects">Projects</Menu.Item>
+        <Menu.Item href="#header">About</Menu.Item>
+        <Menu.Item href="#contact">Contact</Menu.Item>
+      </>
+    ),
+  },
+};

@@ -12,7 +12,7 @@ type CardProps = {
 
 const card = tv({
   extend: focusRing,
-  base: 'shadow-primary/40 bg-primary rounded-2xl text-white shadow-lg',
+  base: 'shadow-primary/40 bg-primary rounded-2xl text-white shadow-lg dark:bg-slate-700',
 });
 
 export const Card: FC<CardProps> = ({ children, className, header }) => {
