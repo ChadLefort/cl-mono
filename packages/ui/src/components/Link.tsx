@@ -1,6 +1,8 @@
-import { FC } from 'react';
-import { composeRenderProps, Link as RACLink, LinkProps as RACLinkProps } from 'react-aria-components';
-import { motion, MotionProps } from 'framer-motion';
+import type { FC } from 'react';
+import type { LinkProps as RACLinkProps } from 'react-aria-components';
+import { composeRenderProps, Link as RACLink } from 'react-aria-components';
+import type { MotionProps } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { tv } from 'tailwind-variants';
 
 import { focusRing } from '../utils';

@@ -1,16 +1,18 @@
-import { composeRenderProps, Button as RACButton, ButtonProps as RACButtonProps } from 'react-aria-components';
+import type { ButtonProps as RACButtonProps } from 'react-aria-components';
+import { composeRenderProps, Button as RACButton } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
-import React, { FC } from 'react';
-import { AnimatePresence, domAnimation, LazyMotion, motion, MotionProps } from 'framer-motion';
+import type { FC, PropsWithoutRef, RefAttributes, SVGProps } from 'react';
+import type { MotionProps } from 'framer-motion';
+import { AnimatePresence, domAnimation, LazyMotion, motion } from 'framer-motion';
 import clsx from 'clsx';
 
 import { focusRing } from '../utils';
 
 export type Icon = React.ForwardRefExoticComponent<
-  React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
+  PropsWithoutRef<SVGProps<SVGSVGElement>> & {
     title?: string;
     titleId?: string;
-  } & React.RefAttributes<SVGSVGElement>
+  } & RefAttributes<SVGSVGElement>
 >;
 
 type IconProps = {

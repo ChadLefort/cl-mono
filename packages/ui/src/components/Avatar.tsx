@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { tv } from 'tailwind-variants';
 import clsx from 'clsx';
 

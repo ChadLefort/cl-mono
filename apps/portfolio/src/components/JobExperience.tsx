@@ -1,5 +1,5 @@
 import { Timeline } from '@chadlefort/ui';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 export const JobExperience: FC = () => {
   return (

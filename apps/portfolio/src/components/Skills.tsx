@@ -12,7 +12,7 @@ import {
   SiVitest,
   SiVuedotjs,
 } from '@icons-pack/react-simple-icons';
-import { FC } from 'react';
+import type { FC } from 'react';
 import clsx from 'clsx';
 
 export const Skills: FC = () => {

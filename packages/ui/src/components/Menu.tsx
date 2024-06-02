@@ -2,7 +2,8 @@ import type { FC } from 'react';
 import type { LinkProps as RACLinkProps } from 'react-aria-components';
 import type { MotionProps } from 'framer-motion';
 
-import { Link, LinkProps } from './Link';
+import type { LinkProps } from './Link';
+import { Link } from './Link';
 
 type MenuItemProps = LinkProps & RACLinkProps & MotionProps;
 

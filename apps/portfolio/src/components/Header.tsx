@@ -1,6 +1,6 @@
 import { Avatar, Button, Terminal } from '@chadlefort/ui';
 import { FolderArrowDownIcon } from '@heroicons/react/24/outline';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 export const Header: FC = () => {
   return (

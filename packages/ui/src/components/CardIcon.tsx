@@ -1,9 +1,10 @@
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { tv } from 'tailwind-variants';
 
-import { Icon } from './Button';
+import type { Icon } from './Button';
 import { focusRing } from '../utils';
 
 type CardProps = {
