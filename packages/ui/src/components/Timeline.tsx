@@ -43,7 +43,7 @@ const TimelineItem: FC<TimelineItemProps> = ({ title, subtitle, date, children }
         }}
         className="ml-6 w-full"
       >
-        <Card>
+        <Card className="p-6">
           <div className="mb-1">
             <h3 className="text-lg font-bold text-gray-400">{title}</h3>
             {subtitle && <p className="text-sm font-semibold text-slate-500">{subtitle}</p>}

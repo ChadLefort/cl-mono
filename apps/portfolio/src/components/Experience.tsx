@@ -1,7 +1,7 @@
 import { Timeline } from '@chadlefort/ui';
 import type { FC } from 'react';
 
-export const JobExperience: FC = () => {
+export const Experience: FC = () => {
   return (
     <>
       <h2 className="mb-3 text-center text-3xl font-bold text-white">Experience</h2>

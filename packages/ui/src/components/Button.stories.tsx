@@ -9,7 +9,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'destructive'],
+      options: ['primary', 'secondary', 'destructive', 'ghost'],
     },
   },
   args: {
@@ -45,5 +45,11 @@ export const Secondary: Story = {
 export const Destructive: Story = {
   args: {
     variant: 'destructive',
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    variant: 'ghost',
   },
 };

@@ -23,7 +23,7 @@ export const Skills: FC = () => {
       <h2 className="mb-3 text-center text-3xl font-bold text-white">Skills</h2>
       <div className="mb-8 h-[2px] w-full bg-gradient-to-r from-transparent via-slate-300 before:to-transparent"></div>
 
-      <Card>
+      <Card className="w-fit self-center p-6">
         <div className="flex flex-wrap justify-center gap-6">
           <Link href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">
             <CardIcon icon={SiReact} title="React" className={clsx('bg-[#61DAFB]', baseIconCardClass)} />

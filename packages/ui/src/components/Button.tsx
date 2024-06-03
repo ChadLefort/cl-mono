@@ -33,7 +33,7 @@ export const Icon: FC<IconProps> = ({ icon, iconPosition, children }) => {
 };
 
 export type ButtonProps = {
-  variant?: 'primary' | 'secondary' | 'destructive';
+  variant?: 'primary' | 'secondary' | 'destructive' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   icon?: Icon;
   iconPosition?: 'left' | 'right';
@@ -48,6 +48,7 @@ const button = tv({
       primary: 'pressed:bg-slate-400 bg-primary text-white hover:bg-slate-600 dark:bg-slate-700',
       secondary: 'pressed:bg-zinc-400 bg-zinc-700 text-zinc-100 hover:bg-zinc-600',
       destructive: 'pressed:bg-red-400 bg-red-700 text-white hover:bg-red-600',
+      ghost: 'text-primary-foregroundtransition bg-transparent text-white shadow-none',
     },
     size: {
       sm: 'rounded-xl p-3 text-xs',

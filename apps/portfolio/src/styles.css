@@ -6,6 +6,10 @@ body {
   @apply dark:bg-dark-pro bg-gray-500;
 }
 
+.focus-visible {
+  @apply focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400;
+}
+
 /* TODO: Replace this CDN */
 @font-face {
   font-family: 'Inter Variable';

@@ -6,7 +6,8 @@ import { useColorScheme } from './hooks/useColorScheme';
 import { Header } from './components/Header';
 import { Skills } from './components/Skills';
 import { Contact } from './components/Contact';
-import { JobExperience } from './components/JobExperience';
+import { Experience } from './components/Experience';
+import { About } from './components/About';
 
 export const App = () => {
   const { colorScheme, toggleTheme } = useColorScheme();
@@ -23,18 +24,24 @@ export const App = () => {
         </Menu>
       </header>
 
-      <div className="flex flex-col items-center space-y-10 px-6 md:space-y-20">
-        <section className="snap-start md:w-6/12">
-          <Header />
-        </section>
+      <div className="flex flex-col items-center">
+        <div className="container space-y-10 px-6 md:space-y-20">
+          <section className="snap-start">
+            <Header />
+          </section>
 
-        <section className="snap-start md:w-6/12 md:pt-24">
-          <JobExperience />
-        </section>
+          <section className="snap-start md:pt-24">
+            <Experience />
+          </section>
 
-        <section className="snap-start">
-          <Skills />
-        </section>
+          <section className="flex snap-start flex-col">
+            <Skills />
+          </section>
+
+          <section className="snap-start">
+            <About />
+          </section>
+        </div>
       </div>
 
       <footer>

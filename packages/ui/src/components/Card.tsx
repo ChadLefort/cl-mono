@@ -2,8 +2,6 @@ import type { FC } from 'react';
 import clsx from 'clsx';
 import { tv } from 'tailwind-variants';
 
-import { focusRing } from '../utils';
-
 type CardProps = {
   children: React.ReactNode;
   className?: string;
@@ -11,8 +9,7 @@ type CardProps = {
 };
 
 const card = tv({
-  extend: focusRing,
-  base: 'shadow-primary/40 bg-primary rounded-2xl text-white shadow-lg dark:bg-slate-700',
+  base: 'shadow-primary/40 bg-primary focus-visible rounded-2xl text-white shadow-lg dark:bg-slate-700',
 });
 
 export const Card: FC<CardProps> = ({ children, className, header }) => {
@@ -24,7 +21,7 @@ export const Card: FC<CardProps> = ({ children, className, header }) => {
         </div>
       )}
 
-      <div className="p-6">{children}</div>
+      {children}
     </div>
   );
 };
