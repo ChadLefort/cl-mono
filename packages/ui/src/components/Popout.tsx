@@ -5,14 +5,14 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 
 import { Button } from './Button';
 
-type PopoverProps = {
+type PopoutProps = {
   id: string;
   renderPopoverContent: () => React.ReactNode;
   children: React.ReactNode;
   showCloseButton?: boolean;
 };
 
-export const Popover: FC<PopoverProps> = ({ id, children, renderPopoverContent, showCloseButton }) => {
+export const Popout: FC<PopoutProps> = ({ id, children, renderPopoverContent, showCloseButton }) => {
   const [selected, setSelected] = useState(false);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const Popover: FC<PopoverProps> = ({ id, children, renderPopoverContent, 
   );
 };
 
-type PopoverContentProps = {
+type PopoutContentProps = {
   id: string;
   selected: boolean;
   setSelected: (selected: boolean) => void;
@@ -59,7 +59,7 @@ type PopoverContentProps = {
   showCloseButton?: boolean;
 };
 
-const PopoverContent: FC<PopoverContentProps> = ({ id, selected, setSelected, children, showCloseButton }) => {
+const PopoverContent: FC<PopoutContentProps> = ({ id, selected, setSelected, children, showCloseButton }) => {
   const handleClose = () => setSelected(false);
 
   return (
@@ -72,7 +72,7 @@ const PopoverContent: FC<PopoverContentProps> = ({ id, selected, setSelected, ch
           exit={{ opacity: 0 }}
           onClick={handleClose}
         >
-          <div className="relative px-4">
+          <div className="relative">
             <motion.div
               className="max-w-auto mx-auto md:max-w-6xl"
               layoutId={`card-container-${id}`}

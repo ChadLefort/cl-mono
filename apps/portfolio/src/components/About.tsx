@@ -1,6 +1,5 @@
 import type { FC } from 'react';
-import { motion } from 'framer-motion';
-import { Popover } from '@chadlefort/ui';
+import { Popout } from '@chadlefort/ui';
 
 export const About: FC = () => {
   return (
@@ -12,34 +11,19 @@ export const About: FC = () => {
         {Array(5)
           .fill(null)
           .map((_, index) => (
-            <Popover
+            <Popout
               key={`about-${index}`}
               id={`about-${index}`}
               renderPopoverContent={() => (
                 <img src={`about/about-${index + 1}.png`} alt="Chad Lefort" className="rounded-2xl" />
               )}
             >
-              <motion.div initial="offscreen" whileInView="onscreen" viewport={{ once: true, amount: 0.8 }}>
-                <motion.img
-                  variants={{
-                    offscreen: {
-                      y: 300,
-                    },
-                    onscreen: {
-                      y: 0,
-                      transition: {
-                        type: 'spring',
-                        bounce: 0.2,
-                        duration: 1,
-                      },
-                    },
-                  }}
-                  src={`about/about-${index + 1}.png`}
-                  alt="Chad Lefort"
-                  className="m-4 max-h-44 max-w-44 rounded-2xl object-contain"
-                />
-              </motion.div>
-            </Popover>
+              <img
+                src={`about/about-${index + 1}.png`}
+                alt="Chad Lefort"
+                className="m-4 max-h-44 max-w-44 rounded-2xl object-contain"
+              />
+            </Popout>
           ))}
       </div>
 

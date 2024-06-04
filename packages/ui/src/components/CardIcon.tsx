@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
 import { tv } from 'tailwind-variants';
 
 import type { Icon } from './Button';
@@ -25,15 +24,14 @@ export const CardIcon: FC<CardProps> = ({ children, className, icon, title }) =>
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.2 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={clsx(cardIcon(), className)}
     >
       {!isHovered && <Icon className="size-8" />}
       {isHovered && title && <h1 className="text-xs font-semibold">{title}</h1>}
       {children}
-    </motion.div>
+    </div>
   );
 };

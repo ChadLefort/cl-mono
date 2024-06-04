@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Popover } from './Popover';
+import { Popout } from './Popout';
 import { Card } from './Card';
 
-const meta: Meta<typeof Popover> = {
-  title: 'Popover',
-  component: Popover,
+const meta: Meta<typeof Popout> = {
+  title: 'Popout',
+  component: Popout,
   argTypes: {
     showCloseButton: {
       control: 'boolean',
@@ -16,13 +16,13 @@ const meta: Meta<typeof Popover> = {
   },
   render: (args) => (
     <div className="flex h-screen items-center justify-center">
-      <Popover {...args} />
+      <Popout {...args} />
     </div>
   ),
 };
 
 export default meta;
-type Story = StoryObj<typeof Popover>;
+type Story = StoryObj<typeof Popout>;
 
 export const Default: Story = {
   args: {
@@ -39,7 +39,7 @@ export const WithCloseButton: Story = {
     showCloseButton: true,
     renderPopoverContent: () => (
       <Card className="p-6">
-        <p className="mt-6">Popover content</p>
+        <p className="mt-6">Popout content</p>
       </Card>
     ),
   },
