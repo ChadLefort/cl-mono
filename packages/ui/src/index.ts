@@ -3,7 +3,7 @@ export * from './components/Avatar';
 export * from './components/Terminal';
 export * from './components/Menu';
 export * from './components/Card';
-export * from './components/Popover';
+export * from './components/Popout';
 export * from './components/CardIcon';
 export * from './components/Link';
 export * from './components/Timeline';

@@ -9,8 +9,9 @@ import { focusRing } from '../utils';
 
 export type LinkProps = {
   variant?: 'primary' | 'secondary';
-  animated?: boolean;
-};
+  animate?: boolean;
+} & RACLinkProps &
+  Omit<MotionProps, 'animate'>;
 
 const link = tv({
   extend: focusRing,
@@ -28,8 +29,8 @@ const link = tv({
 
 const AnimatedLink = motion(RACLink);
 
-export const Link: FC<LinkProps & RACLinkProps & MotionProps> = (props) => {
-  return props.animated ? (
+export const Link: FC<LinkProps> = (props) => {
+  return props.animate ? (
     <AnimatedLink
       {...props}
       whileHover={{ scale: !props.isDisabled ? 1.4 : undefined }}
