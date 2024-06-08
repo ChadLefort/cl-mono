@@ -8,6 +8,7 @@ import { Skills } from './components/Skills';
 import { Contact } from './components/Contact';
 import { Experience } from './components/Experience';
 import { About } from './components/About';
+import { Projects } from './components/Projects';
 
 export const App = () => {
   const { colorScheme, toggleTheme } = useColorScheme();
@@ -17,8 +18,8 @@ export const App = () => {
       <header className="sticky top-0 z-50">
         <Menu>
           <Menu.Item href="#experience">Experience</Menu.Item>
-          <Menu.Item href="#skills">Skills</Menu.Item>
           <Menu.Item href="#projects">Projects</Menu.Item>
+          <Menu.Item href="#skills">Skills</Menu.Item>
           <Menu.Item href="#header">About</Menu.Item>
           <Menu.Item href="#contact">Contact</Menu.Item>
         </Menu>
@@ -32,6 +33,10 @@ export const App = () => {
 
           <section className="snap-start md:pt-24">
             <Experience />
+          </section>
+
+          <section className="snap-start">
+            <Projects />
           </section>
 
           <section className="flex snap-start flex-col">

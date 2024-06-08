@@ -26,3 +26,23 @@ h2,
 h3 {
   font-family: 'Inter Variable', sans-serif;
 }
+
+.project-spear-cart {
+  background-image: url('/spear-cart-thumbnail.png');
+  background-size: cover;
+}
+
+.project-spear-dashboard {
+  background-image: url('/spear-dashboard-thumbnail.png');
+  background-size: cover;
+}
+
+.project-module-federation {
+  background-image: url('/module-federation-thumbnail.png');
+  background-size: cover;
+}
+
+.project-lerna {
+  background-image: url('/lerna-thumbnail.png');
+  background-size: cover;
+}

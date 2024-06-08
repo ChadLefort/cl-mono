@@ -1,27 +1,16 @@
 import { Card, CardIcon, Link } from '@chadlefort/ui';
 import {
   SiJavascript,
-  SiJavascriptHex,
   SiMockserviceworker,
-  SiMockserviceworkerHex,
   SiNodedotjs,
-  SiNodedotjsHex,
   SiNuxtdotjs,
-  SiNuxtdotjsHex,
   SiReact,
-  SiReactHex,
   SiRedux,
-  SiReduxHex,
   SiTestinglibrary,
-  SiTestinglibraryHex,
   SiTypescript,
-  SiTypescriptHex,
   SiVite,
-  SiViteHex,
   SiVitest,
-  SiVitestHex,
   SiVuedotjs,
-  SiVuedotjsHex,
 } from '@icons-pack/react-simple-icons';
 import type { FC } from 'react';
 import clsx from 'clsx';
@@ -43,7 +32,7 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon icon={SiReact} title="React" className={clsx(`bg-[${SiReactHex}]`, baseIconCardClass)} />
+            <CardIcon icon={SiReact} title="React" className={clsx(`bg-[#61DAFB]`, baseIconCardClass)} />
           </Link>
 
           <Link
@@ -53,7 +42,7 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon icon={SiRedux} title="Redux" className={clsx(`bg-[${SiReduxHex}]`, baseIconCardClass)} />
+            <CardIcon icon={SiRedux} title="Redux" className={clsx(`bg-[#764ABC]`, baseIconCardClass)} />
           </Link>
 
           <Link
@@ -63,11 +52,7 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon
-              icon={SiTypescript}
-              title="TypeScript"
-              className={clsx(`bg-[${SiTypescriptHex}]`, baseIconCardClass)}
-            />
+            <CardIcon icon={SiTypescript} title="TypeScript" className={clsx(`bg-[#3178C6]`, baseIconCardClass)} />
           </Link>
 
           <Link
@@ -77,11 +62,7 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon
-              icon={SiJavascript}
-              title="JavaScript"
-              className={clsx(`bg-[${SiJavascriptHex}]`, baseIconCardClass)}
-            />
+            <CardIcon icon={SiJavascript} title="JavaScript" className={clsx(`bg-[#F7DF1E]`, baseIconCardClass)} />
           </Link>
 
           <Link
@@ -91,7 +72,7 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon icon={SiVuedotjs} title="Vue.js" className={clsx(`bg-[${SiVuedotjsHex}]`, baseIconCardClass)} />
+            <CardIcon icon={SiVuedotjs} title="Vue.js" className={clsx(`bg-[#4FC08D]`, baseIconCardClass)} />
           </Link>
 
           <Link
@@ -101,11 +82,7 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon
-              icon={SiNuxtdotjs}
-              title="Nuxt.js"
-              className={clsx(`bg-[${SiNuxtdotjsHex}]`, baseIconCardClass)}
-            />
+            <CardIcon icon={SiNuxtdotjs} title="Nuxt.js" className={clsx(`bg-[#00DC82]`, baseIconCardClass)} />
           </Link>
 
           <Link
@@ -115,7 +92,7 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon icon={SiVite} title="Vite" className={clsx(`bg-[${SiViteHex}]`, baseIconCardClass)} />
+            <CardIcon icon={SiVite} title="Vite" className={clsx(`bg-[#646CFF]`, baseIconCardClass)} />
           </Link>
 
           <Link
@@ -125,7 +102,7 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon icon={SiVitest} title="Vitest" className={clsx(`bg-[${SiVitestHex}]`, baseIconCardClass)} />
+            <CardIcon icon={SiVitest} title="Vitest" className={clsx(`bg-[#6E9F18]`, baseIconCardClass)} />
           </Link>
 
           <Link
@@ -135,19 +112,11 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon
-              icon={SiTestinglibrary}
-              title="Testing Lib"
-              className={clsx(`bg-[${SiTestinglibraryHex}]`, baseIconCardClass)}
-            />
+            <CardIcon icon={SiTestinglibrary} title="Testing Lib" className={clsx(`bg-[#E33332]`, baseIconCardClass)} />
           </Link>
 
           <Link animate href="https://mswjs.io/" target="_blank" rel="noopener noreferrer" className="hover:text-white">
-            <CardIcon
-              icon={SiMockserviceworker}
-              title="MSW"
-              className={clsx(`bg-[${SiMockserviceworkerHex}]`, baseIconCardClass)}
-            />
+            <CardIcon icon={SiMockserviceworker} title="MSW" className={clsx(`bg-[#FF6A33]`, baseIconCardClass)} />
           </Link>
 
           <Link
@@ -157,11 +126,7 @@ export const Skills: FC = () => {
             rel="noopener noreferrer"
             className="hover:text-white"
           >
-            <CardIcon
-              icon={SiNodedotjs}
-              title="Node.js"
-              className={clsx(`bg-[${SiNodedotjsHex}]`, baseIconCardClass)}
-            />
+            <CardIcon icon={SiNodedotjs} title="Node.js" className={clsx(`bg-[#5FA04E]`, baseIconCardClass)} />
           </Link>
         </div>
       </Card>
