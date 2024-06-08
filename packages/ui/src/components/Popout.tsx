@@ -2,13 +2,16 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import ReactDOM from 'react-dom';
 
 import { Button } from './Button';
+
+type ChildrenFunction = ({ setSelected }: { setSelected: (selected: boolean) => void }) => React.ReactNode;
 
 type PopoutProps = {
   id: string;
   renderPopoverContent: () => React.ReactNode;
-  children: React.ReactNode;
+  children: React.ReactNode | ChildrenFunction;
   showCloseButton?: boolean;
 };
 
@@ -41,7 +44,7 @@ export const Popout: FC<PopoutProps> = ({ id, children, renderPopoverContent, sh
         whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.2 }}
       >
-        {children}
+        {typeof children === 'function' ? (children as ChildrenFunction)({ setSelected }) : children}
       </motion.div>
 
       <PopoverContent id={id} selected={selected} setSelected={setSelected} showCloseButton={showCloseButton}>
@@ -62,19 +65,19 @@ type PopoutContentProps = {
 const PopoverContent: FC<PopoutContentProps> = ({ id, selected, setSelected, children, showCloseButton }) => {
   const handleClose = () => setSelected(false);
 
-  return (
+  return ReactDOM.createPortal(
     <AnimatePresence>
       {selected && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-scroll bg-black bg-opacity-75"
+          className="fixed inset-0 z-[100] block overflow-y-scroll bg-black bg-opacity-75 p-0 md:flex md:justify-center md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleClose}
         >
-          <div className="relative">
+          <div className="relative m-auto">
             <motion.div
-              className="max-w-auto mx-auto md:max-w-6xl"
+              className="max-w-auto mx-auto max-w-7xl"
               layoutId={`card-container-${id}`}
               key={id}
               initial={{ scale: 0.8, opacity: 0 }}
@@ -91,6 +94,7 @@ const PopoverContent: FC<PopoutContentProps> = ({ id, selected, setSelected, chi
           </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
