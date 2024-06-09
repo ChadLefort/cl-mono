@@ -35,7 +35,7 @@ export const App = () => {
             <Experience />
           </section>
 
-          <section className="snap-start">
+          <section className="snap-start md:pt-24">
             <Projects />
           </section>
 

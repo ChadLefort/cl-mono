@@ -1,21 +1,27 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import ReactDOM from 'react-dom';
+import { FocusScope, OverlayContainer } from 'react-aria';
 
 import { Button } from './Button';
 
-type ChildrenFunction = ({ setSelected }: { setSelected: (selected: boolean) => void }) => React.ReactNode;
-
 type PopoutProps = {
   id: string;
-  renderPopoverContent: () => React.ReactNode;
-  children: React.ReactNode | ChildrenFunction;
+  children: React.ReactNode;
   showCloseButton?: boolean;
+  isDismissable?: boolean;
+  renderPopoverContent: () => React.ReactNode;
 };
 
-export const Popout: FC<PopoutProps> = ({ id, children, renderPopoverContent, showCloseButton }) => {
+export const Popout: FC<PopoutProps> = ({
+  id,
+  children,
+  showCloseButton,
+  isDismissable = true,
+  renderPopoverContent,
+}) => {
   const [selected, setSelected] = useState(false);
 
   useEffect(() => {
@@ -34,22 +40,29 @@ export const Popout: FC<PopoutProps> = ({ id, children, renderPopoverContent, sh
 
   return (
     <>
-      <motion.div
-        className="focus-visible cursor-pointer"
-        layoutId={`card-container-${id}`}
-        onClick={() => setSelected(true)}
-        onKeyDown={(e) => e.key === 'Enter' && setSelected(true)}
-        key={id}
+      <Button
+        layoutId={`popout-${id}`}
+        variant="ghost"
+        className="p-0"
+        onPress={() => setSelected(true)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.2 }}
       >
-        {typeof children === 'function' ? (children as ChildrenFunction)({ setSelected }) : children}
-      </motion.div>
+        {children}
+      </Button>
 
-      <PopoverContent id={id} selected={selected} setSelected={setSelected} showCloseButton={showCloseButton}>
-        {renderPopoverContent()}
-      </PopoverContent>
+      <OverlayContainer>
+        <PopoverContent
+          id={id}
+          selected={selected}
+          setSelected={setSelected}
+          showCloseButton={showCloseButton}
+          isDismissable={isDismissable}
+        >
+          {renderPopoverContent()}
+        </PopoverContent>
+      </OverlayContainer>
     </>
   );
 };
@@ -57,39 +70,65 @@ export const Popout: FC<PopoutProps> = ({ id, children, renderPopoverContent, sh
 type PopoutContentProps = {
   id: string;
   selected: boolean;
-  setSelected: (selected: boolean) => void;
   children: React.ReactNode;
   showCloseButton?: boolean;
+  isDismissable?: boolean;
+  setSelected: (selected: boolean) => void;
 };
 
-const PopoverContent: FC<PopoutContentProps> = ({ id, selected, setSelected, children, showCloseButton }) => {
+const PopoverContent: FC<PopoutContentProps> = ({
+  id,
+  selected,
+  children,
+  showCloseButton,
+  isDismissable,
+  setSelected,
+}) => {
   const handleClose = () => setSelected(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        setSelected(false);
+      }
+    };
+
+    if (selected && isDismissable) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDismissable, selected, setSelected]);
 
   return ReactDOM.createPortal(
     <AnimatePresence>
       {selected && (
         <motion.div
-          className="fixed inset-0 z-[100] block overflow-y-scroll bg-black bg-opacity-75 p-0 md:flex md:justify-center md:p-6"
+          className="fixed inset-0 z-[100] block overflow-y-scroll bg-black/[50%] p-0 backdrop-blur-lg md:flex md:justify-center md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={handleClose}
         >
           <div className="relative m-auto">
             <motion.div
               className="max-w-auto mx-auto max-w-7xl"
-              layoutId={`card-container-${id}`}
-              key={id}
+              layoutId={`popout-${id}`}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
+              ref={modalRef}
             >
-              {showCloseButton && (
-                <Button variant="ghost" onPress={handleClose} className="absolute right-0 top-0">
-                  <XMarkIcon className="size-6" />
-                </Button>
-              )}
-              {children}
+              <FocusScope contain restoreFocus autoFocus>
+                {showCloseButton && (
+                  <Button variant="ghost" onPress={handleClose} className="absolute right-0 top-0">
+                    <XMarkIcon className="size-6" />
+                  </Button>
+                )}
+                {children}
+              </FocusScope>
             </motion.div>
           </div>
         </motion.div>

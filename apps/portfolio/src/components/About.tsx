@@ -7,7 +7,7 @@ export const About: FC = () => {
       <h2 className="mb-3 text-center text-3xl font-bold text-white">About</h2>
       <div className="mb-8 h-[2px] w-full bg-gradient-to-r from-transparent via-slate-300 before:to-transparent"></div>
 
-      <div className="mb-6 flex flex-col md:flex-row">
+      <div className="mb-6 flex flex-col gap-6 md:flex-row">
         {Array(5)
           .fill(null)
           .map((_, index) => (
@@ -21,7 +21,7 @@ export const About: FC = () => {
               <img
                 src={`about/about-${index + 1}.png`}
                 alt="Chad Lefort"
-                className="m-4 max-h-44 max-w-44 rounded-2xl object-contain"
+                className="max-h-44 max-w-44 rounded-2xl object-contain"
               />
             </Popout>
           ))}
