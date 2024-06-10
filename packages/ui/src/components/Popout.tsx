@@ -1,139 +1,121 @@
-import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import type { FC, HTMLAttributes } from 'react';
+import { useRef } from 'react';
+import type { MotionProps } from 'framer-motion';
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import ReactDOM from 'react-dom';
-import { FocusScope, OverlayContainer } from 'react-aria';
+import { Overlay, useDialog, useModalOverlay, useOverlayTrigger } from 'react-aria';
+import { type OverlayTriggerState, useOverlayTriggerState } from 'react-stately';
+import type { DialogProps } from 'react-aria-components';
 
 import { Button } from './Button';
 
-type PopoutProps = {
+type ChildrenFunction = (close: () => void) => React.ReactNode;
+
+type PopoutTriggerProps = {
   id: string;
-  children: React.ReactNode;
+  children: React.ReactNode | ChildrenFunction;
   showCloseButton?: boolean;
   isDismissable?: boolean;
-  renderPopoverContent: () => React.ReactNode;
+  renderTrigger: () => React.ReactNode;
 };
 
-export const Popout: FC<PopoutProps> = ({
+export const PopoutTrigger: FC<PopoutTriggerProps> = ({
   id,
   children,
   showCloseButton,
   isDismissable = true,
-  renderPopoverContent,
+  renderTrigger,
 }) => {
-  const [selected, setSelected] = useState(false);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setSelected(false);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+  const state = useOverlayTriggerState({});
+  const { triggerProps } = useOverlayTrigger({ type: 'dialog' }, state);
 
   return (
     <>
       <Button
+        {...triggerProps}
         layoutId={`popout-${id}`}
         variant="ghost"
         className="p-0"
-        onPress={() => setSelected(true)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ duration: 0.2 }}
+        transition={{ ease: 'backOut' }}
       >
-        {children}
+        {renderTrigger()}
       </Button>
 
-      <OverlayContainer>
-        <PopoverContent
-          id={id}
-          selected={selected}
-          setSelected={setSelected}
-          showCloseButton={showCloseButton}
-          isDismissable={isDismissable}
-        >
-          {renderPopoverContent()}
-        </PopoverContent>
-      </OverlayContainer>
+      <AnimatePresence mode="wait">
+        {state.isOpen && (
+          <Overlay>
+            <PopoverOverlay id={id} showCloseButton={showCloseButton} isDismissable={isDismissable} state={state}>
+              {typeof children === 'function' ? (children as ChildrenFunction)(state.close) : children}
+            </PopoverOverlay>
+          </Overlay>
+        )}
+      </AnimatePresence>
     </>
   );
 };
 
-type PopoutContentProps = {
+type PopContentWrapperProps = {
+  children: React.ReactNode;
+} & DialogProps;
+
+const PopContentWrapper: FC<PopContentWrapperProps> = ({ children, ...props }) => {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const { dialogProps } = useDialog(props, dialogRef);
+
+  return (
+    <div {...dialogProps} ref={dialogRef} className="outline-none">
+      {children}
+    </div>
+  );
+};
+
+type PopoutOverlayProps = {
   id: string;
-  selected: boolean;
   children: React.ReactNode;
   showCloseButton?: boolean;
   isDismissable?: boolean;
-  setSelected: (selected: boolean) => void;
+  state: OverlayTriggerState;
 };
 
-const PopoverContent: FC<PopoutContentProps> = ({
-  id,
-  selected,
-  children,
-  showCloseButton,
-  isDismissable,
-  setSelected,
-}) => {
-  const handleClose = () => setSelected(false);
+const PopoverOverlay: FC<PopoutOverlayProps> = ({ id, children, showCloseButton, isDismissable, state }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const { modalProps, underlayProps } = useModalOverlay(
+    { isDismissable, isKeyboardDismissDisabled: false },
+    state,
+    modalRef
+  );
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        setSelected(false);
-      }
-    };
+  return (
+    <LazyMotion features={domAnimation}>
+      <m.div
+        {...(underlayProps as HTMLAttributes<HTMLElement> & MotionProps)}
+        className="fixed inset-0 z-[100] block overflow-y-scroll bg-black/[50%] p-0 backdrop-blur-lg md:flex md:justify-center md:p-6"
+        initial={{ opacity: 0.8 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <div className="relative m-auto">
+          <m.div
+            {...(modalProps as HTMLAttributes<HTMLElement> & MotionProps)}
+            className="max-w-auto mx-auto max-w-3xl"
+            layoutId={`popout-${id}`}
+            initial={{ scale: 0.6, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.6, opacity: 0 }}
+            ref={modalRef}
+          >
+            <PopContentWrapper>
+              {showCloseButton && (
+                <Button variant="ghost" onPress={() => state.close()} className="absolute right-2 top-2">
+                  <XMarkIcon className="size-6" />
+                </Button>
+              )}
 
-    if (selected && isDismissable) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isDismissable, selected, setSelected]);
-
-  return ReactDOM.createPortal(
-    <AnimatePresence>
-      {selected && (
-        <motion.div
-          className="fixed inset-0 z-[100] block overflow-y-scroll bg-black/[50%] p-0 backdrop-blur-lg md:flex md:justify-center md:p-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <div className="relative m-auto">
-            <motion.div
-              className="max-w-auto mx-auto max-w-7xl"
-              layoutId={`popout-${id}`}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              ref={modalRef}
-            >
-              <FocusScope contain restoreFocus autoFocus>
-                {showCloseButton && (
-                  <Button variant="ghost" onPress={handleClose} className="absolute right-0 top-0">
-                    <XMarkIcon className="size-6" />
-                  </Button>
-                )}
-                {children}
-              </FocusScope>
-            </motion.div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>,
-    document.body
+              {children}
+            </PopContentWrapper>
+          </m.div>
+        </div>
+      </m.div>
+    </LazyMotion>
   );
 };

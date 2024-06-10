@@ -40,9 +40,11 @@ h3 {
 .project-module-federation {
   background-image: url('/module-federation-thumbnail.png');
   background-size: cover;
+  background-position: center;
 }
 
 .project-lerna {
   background-image: url('/lerna-thumbnail.png');
   background-size: cover;
+  background-position: center;
 }

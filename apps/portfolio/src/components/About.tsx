@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Popout } from '@chadlefort/ui';
+import { PopoutTrigger } from '@chadlefort/ui';
 
 export const About: FC = () => {
   return (
@@ -11,19 +11,19 @@ export const About: FC = () => {
         {Array(5)
           .fill(null)
           .map((_, index) => (
-            <Popout
+            <PopoutTrigger
               key={`about-${index}`}
               id={`about-${index}`}
-              renderPopoverContent={() => (
-                <img src={`about/about-${index + 1}.png`} alt="Chad Lefort" className="rounded-2xl" />
+              renderTrigger={() => (
+                <img
+                  src={`about/about-${index + 1}.png`}
+                  alt="Chad Lefort"
+                  className="max-h-44 max-w-44 rounded-2xl object-contain"
+                />
               )}
             >
-              <img
-                src={`about/about-${index + 1}.png`}
-                alt="Chad Lefort"
-                className="max-h-44 max-w-44 rounded-2xl object-contain"
-              />
-            </Popout>
+              <img src={`about/about-${index + 1}.png`} alt="Chad Lefort" className="rounded-2xl" />
+            </PopoutTrigger>
           ))}
       </div>
 

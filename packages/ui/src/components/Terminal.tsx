@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
+import { animate, domAnimation, LazyMotion, m, useMotionValue, useTransform } from 'framer-motion';
 import { useEffect } from 'react';
 
 type CommandTextProps = {
@@ -10,22 +10,24 @@ type CommandTextProps = {
 
 const CursorBlinker: FC = () => {
   return (
-    <motion.div
-      variants={{
-        blinking: {
-          opacity: [0, 0, 1, 1],
-          transition: {
-            duration: 1,
-            repeat: Infinity,
-            repeatDelay: 0,
-            ease: 'linear',
-            times: [0, 0.5, 0.5, 1],
+    <LazyMotion features={domAnimation}>
+      <m.div
+        variants={{
+          blinking: {
+            opacity: [0, 0, 1, 1],
+            transition: {
+              duration: 1,
+              repeat: Infinity,
+              repeatDelay: 0,
+              ease: 'linear',
+              times: [0, 0.5, 0.5, 1],
+            },
           },
-        },
-      }}
-      animate="blinking"
-      className="inline-block h-5 w-[3px] translate-y-1 bg-slate-300"
-    />
+        }}
+        animate="blinking"
+        className="inline-block h-5 w-[3px] translate-y-1 bg-slate-300"
+      />
+    </LazyMotion>
   );
 };
 
@@ -46,9 +48,11 @@ const CommandText: FC<CommandTextProps> = ({ textCommand, delay = 0 }) => {
   }, [count, delay]);
 
   return (
-    <motion.span whileInView="visible" className="inline font-mono">
-      {displayText}
-    </motion.span>
+    <LazyMotion features={domAnimation}>
+      <m.span whileInView="visible" className="inline font-mono">
+        {displayText}
+      </m.span>
+    </LazyMotion>
   );
 };
 

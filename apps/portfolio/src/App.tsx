@@ -14,7 +14,7 @@ export const App = () => {
   const { colorScheme, toggleTheme } = useColorScheme();
 
   return (
-    <main className="h-screen snap-none overflow-y-auto md:snap-y md:snap-mandatory">
+    <div className="h-screen snap-none overflow-y-auto md:snap-y md:snap-mandatory">
       <header className="sticky top-0 z-50">
         <Menu>
           <Menu.Item href="#experience">Experience</Menu.Item>
@@ -26,7 +26,7 @@ export const App = () => {
       </header>
 
       <div className="flex flex-col items-center">
-        <div className="container space-y-10 px-6 md:space-y-20">
+        <main className="container space-y-10 px-6 md:space-y-20">
           <section className="snap-start">
             <Header />
           </section>
@@ -46,18 +46,18 @@ export const App = () => {
           <section className="snap-start">
             <About />
           </section>
-        </div>
+        </main>
       </div>
 
       <footer>
         <Contact />
 
         <div className="fixed bottom-0 right-0 mx-6 my-4 hidden md:block">
-          <Button variant="primary" className="rounded-full" onPress={toggleTheme}>
+          <Button variant="primary" className="rounded-full" onPress={toggleTheme} aria-label="Toggle Theme">
             {colorScheme === 'light' ? <MoonIcon className="size-6" /> : <SunIcon className="size-6" />}
           </Button>
         </div>
       </footer>
-    </main>
+    </div>
   );
 };

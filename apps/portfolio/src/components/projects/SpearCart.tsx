@@ -20,16 +20,9 @@ export const SpearCart: FC = () => {
 
   return (
     <>
-      <h3 className="text-xl font-bold">Spear Cart</h3>
+      <h3 className="text-xl font-bold">Spear Education Cart</h3>
       <p className="mb-6 text-sm">Aug 2023 - Feb 2024</p>
 
-      <div className="flex justify-center">
-        <img
-          src="/cart_1_membership.webp"
-          alt="Spear Cart"
-          className="mb-6 max-h-[500px] w-3/4 max-w-[750px] rounded-2xl object-cover"
-        />
-      </div>
       <p className="mb-3">
         Built and architected a new mobile-first cart for an education SaaS platform tailored to dentists and their
         practices. This project revitalized the cart by enhancing user experience, reducing friction points, and

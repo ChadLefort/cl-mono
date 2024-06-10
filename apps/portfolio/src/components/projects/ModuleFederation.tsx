@@ -25,15 +25,21 @@ export const ModuleFederation: FC = () => {
       </p>
       <p>
         If you want to learn more about the project, you can check out the{' '}
-        <Link href="https://github.com/ChadLefort/mf-mfe-demo" target="_blank" rel="noopener">
+        <Link variant="secondary" href="https://github.com/ChadLefort/mf-mfe-demo" target="_blank" rel="noopener">
           GitHub repository
         </Link>
         . The repository contains a detailed{' '}
-        <Link href="https://github.com/ChadLefort/mf-mfe-demo/blob/master/README.md" target="_blank" rel="noopener">
+        <Link
+          variant="secondary"
+          href="https://github.com/ChadLefort/mf-mfe-demo/blob/master/README.md"
+          target="_blank"
+          rel="noopener"
+        >
           README file
         </Link>{' '}
         that goes into explaining how to setup and run the project. Additionally, it also contains infomation on the{' '}
         <Link
+          variant="secondary"
           href="https://github.com/ChadLefort/mf-mfe-demo/blob/master/docs/ARCHITECTURE.md"
           target="_blank"
           rel="noopener"

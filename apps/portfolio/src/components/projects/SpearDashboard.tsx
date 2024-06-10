@@ -21,16 +21,9 @@ export const SpearDashboard: FC = () => {
 
   return (
     <>
-      <h3 className="text-xl font-bold">Spear Dashboard</h3>
+      <h3 className="text-xl font-bold">Spear Education Dashboard</h3>
       <p className="mb-6 text-sm">Apr 2022 - Feb 2023</p>
 
-      <div className="flex justify-center">
-        <img
-          src="/spear-dashboard.png"
-          alt="Spear Dashboard"
-          className="mb-6 max-h-[500px] w-3/4 max-w-[750px] rounded-2xl object-cover"
-        />
-      </div>
       <p className="mb-3">
         Built and architected a new mobile-first dashboard for an education SaaS platform tailored to dentists and their
         practices. Each area of the platform is represented by a widget on the dashboard, requiring me to quickly

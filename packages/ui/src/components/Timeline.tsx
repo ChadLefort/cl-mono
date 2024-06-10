@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { motion } from 'framer-motion';
+import { domAnimation, LazyMotion, m } from 'framer-motion';
 
 import { Card } from './Card';
 
@@ -19,41 +19,43 @@ type TimelineItemProps = {
 
 const TimelineItem: FC<TimelineItemProps> = ({ title, subtitle, date, children }) => {
   return (
-    <motion.div
-      initial="offscreen"
-      whileInView="onscreen"
-      viewport={{ once: true, amount: 0.8 }}
-      className="group relative flex items-start"
-    >
-      <TimelineDot />
-
-      <motion.div
-        variants={{
-          offscreen: {
-            y: 300,
-          },
-          onscreen: {
-            y: 0,
-            transition: {
-              type: 'spring',
-              bounce: 0.2,
-              duration: 1,
-            },
-          },
-        }}
-        className="ml-6 w-full"
+    <LazyMotion features={domAnimation}>
+      <m.div
+        initial="offscreen"
+        whileInView="onscreen"
+        viewport={{ once: true, amount: 0.8 }}
+        className="group relative flex items-start"
       >
-        <Card className="p-6">
-          <div className="mb-1">
-            <h3 className="text-lg font-bold text-gray-400">{title}</h3>
-            {subtitle && <p className="text-sm font-semibold text-slate-500">{subtitle}</p>}
-            <time className="text-sm font-medium text-slate-500">{date}</time>
-          </div>
+        <TimelineDot />
 
-          <ul className="ml-4 list-outside list-disc space-y-4">{children}</ul>
-        </Card>
-      </motion.div>
-    </motion.div>
+        <m.div
+          variants={{
+            offscreen: {
+              y: 300,
+            },
+            onscreen: {
+              y: 0,
+              transition: {
+                type: 'spring',
+                bounce: 0.2,
+                duration: 1,
+              },
+            },
+          }}
+          className="ml-6 w-full"
+        >
+          <Card className="p-6">
+            <div className="mb-1">
+              <h3 className="text-lg font-bold text-gray-300">{title}</h3>
+              {subtitle && <p className="text-sm font-semibold text-slate-500">{subtitle}</p>}
+              <time className="text-sm font-medium text-slate-400">{date}</time>
+            </div>
+
+            <ul className="ml-4 list-outside list-disc space-y-4">{children}</ul>
+          </Card>
+        </m.div>
+      </m.div>
+    </LazyMotion>
   );
 };
 

@@ -3,7 +3,7 @@ import { composeRenderProps, Button as RACButton } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
 import type { FC, PropsWithoutRef, RefAttributes, SVGProps } from 'react';
 import type { MotionProps } from 'framer-motion';
-import { AnimatePresence, domAnimation, LazyMotion, motion } from 'framer-motion';
+import { domMax, LazyMotion, m } from 'framer-motion';
 import clsx from 'clsx';
 
 import { focusRing } from '../utils';
@@ -65,29 +65,27 @@ const button = tv({
   },
 });
 
-const AnimatedButton = motion(RACButton);
+const AnimatedButton = m(RACButton);
 
 export const Button: FC<ButtonProps> = (props) => {
   return (
-    <LazyMotion features={domAnimation}>
-      <AnimatePresence>
-        <AnimatedButton
-          {...props}
-          whileHover={{ scale: !props.isDisabled ? 1.1 : undefined }}
-          whileTap={{ scale: !props.isDisabled ? 0.9 : undefined }}
-          className={composeRenderProps(props.className, (className, renderProps) =>
-            button({ ...renderProps, variant: props.variant, size: props.size, className })
-          )}
-        >
-          {props.icon ? (
-            <Icon icon={props.icon} iconPosition={props.iconPosition}>
-              {props.children as React.ReactNode}
-            </Icon>
-          ) : (
-            props.children
-          )}
-        </AnimatedButton>
-      </AnimatePresence>
+    <LazyMotion features={domMax}>
+      <AnimatedButton
+        {...props}
+        whileHover={{ scale: !props.isDisabled ? 1.1 : undefined }}
+        whileTap={{ scale: !props.isDisabled ? 0.9 : undefined }}
+        className={composeRenderProps(props.className, (className, renderProps) =>
+          button({ ...renderProps, variant: props.variant, size: props.size, className })
+        )}
+      >
+        {props.icon ? (
+          <Icon icon={props.icon} iconPosition={props.iconPosition}>
+            {props.children as React.ReactNode}
+          </Icon>
+        ) : (
+          props.children
+        )}
+      </AnimatedButton>
     </LazyMotion>
   );
 };
